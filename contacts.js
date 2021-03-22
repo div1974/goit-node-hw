@@ -39,7 +39,7 @@ async function removeContact(contactId) {
 
   const updatedContacts = JSON.stringify(contacts);
   const updatedData = await fs.writeFile(contactsPath, updatedContacts);
-  console.table("Таблица контактов после удаления контакта", contacts);
+  console.log("Таблица контактов после удаления контакта");
   return console.table(contacts);
 }
 
