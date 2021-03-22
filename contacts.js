@@ -2,29 +2,34 @@
 
 const fs = require("fs").promises;
 const path = require("path");
+const { v4 } = require("uuid");
 
 //  Раскомментируй и запиши значение
 const contactsPath = path.join(__dirname, "./db/contacts.json");
 
+async function readFile(path) {
+  const fileData = await fs.readFile(path, "utf-8");
+  const contacts = JSON.parse(fileData);
+  return contacts;
+}
+
 // TODO: задокументировать каждую функцию
 async function listContacts() {
   // ...твой код
-  const data = await fs.readFile(contactsPath, "utf-8");
-  return console.table(JSON.parse(data));
+  const contacts = await readFile(contactsPath);
+  return console.table(contacts);
 }
 
 async function getContactById(contactId) {
   // ...твой код
-  const data = await fs.readFile(contactsPath, "utf-8");
-  const contacts = JSON.parse(data);
+  const contacts = await readFile(contactsPath);
   const contact = contacts.find((el) => el.id === contactId);
   return console.table(contact);
 }
 
 async function removeContact(contactId) {
   // ...твой код
-  const data = await fs.readFile(contactsPath, "utf-8");
-  const contacts = JSON.parse(data);
+  const contacts = await readFile(contactsPath);
   const idx = contacts.findIndex((el) => el.id === contactId);
   if (idx !== -1) {
     const deleteContact = contacts[idx];
@@ -35,16 +40,14 @@ async function removeContact(contactId) {
   const updatedContacts = JSON.stringify(contacts);
   const updatedData = await fs.writeFile(contactsPath, updatedContacts);
   console.table("Таблица контактов после удаления контакта", contacts);
-  return console.table(JSON.parse(await fs.readFile(contactsPath, "utf-8")));
+  return console.table(contacts);
 }
 
 async function addContact(name, email, phone) {
   // ...твой код
-  const data = await fs.readFile(contactsPath, "utf-8");
-  const contacts = JSON.parse(data);
-  const length = contacts.length;
+  const contacts = await readFile(contactsPath);
   const newContact = {
-    id: length + 1,
+    id: v4(),
     name: name,
     email: email,
     phone: phone,
@@ -53,7 +56,7 @@ async function addContact(name, email, phone) {
   console.log("Добавляем контакт", newContact);
   const updatedContacts = JSON.stringify(contacts);
   const updatedData = await fs.writeFile(contactsPath, updatedContacts);
-  return console.table(JSON.parse(await fs.readFile(contactsPath, "utf-8")));
+  return console.table(contacts);
 }
 
 module.exports = {
