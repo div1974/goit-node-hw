@@ -1,0 +1,26 @@
+{
+  "name": "01-node-basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon --ignore ./db/contacts.json index"
+  },
+  "repository": "git+https://github.com/div1974/goit-node-hw.git",
+  "keywords": [],
+  "author": "div1974 <div@ukr.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/div1974/goit-node-hw/issues"
+  },
+  "homepage": "https://github.com/div1974/goit-node-hw#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "yargs": "^16.2.0"
+  }
+}
